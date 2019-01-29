@@ -1,9 +1,13 @@
-const appController =  require('appController')
+require('dotenv').config({ path: 'variables.env' });
+const DepthManager = require('./mod_depth');
 
-process.on('uncaughtException', err => {
-    console.log(err);
-});
-
+process.on('uncaughtException', err => console.log(err));
 process.on('unhandledRejection', (reason, p) => console.warn('Unhandled Rejection at: Promise', p, 'reason:', reason));
 
-appController.startDepth()
+const start = async () => {
+    const depthManager = new DepthManager();
+    await depthManager.init();
+    depthManager.startWS();
+};
+
+start();

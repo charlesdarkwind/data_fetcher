@@ -1,4 +1,5 @@
 const rp = require('request-promise');
+const binance = require('./binance');
 
 const requestOptions = {
     method: 'GET',
@@ -26,9 +27,10 @@ exports.getExchangeInfos = () => new Promise((resolve, reject) => {
 /**
  * Get all BTC pairs of binance
  * @param exchangeInfos - Object obtained after GETting the endpoint with same name on Binance'e API
+ * @param {array} excludedPairs - Array of pairs to exclude
  * @returns {array} - All BTC pairs of binance
  */
-exports.getBtcPairs = exchangeInfos => exchangeInfos.symbols.filter(
+exports.getBtcPairs = (exchangeInfos, excludedPairs) => exchangeInfos.symbols.filter(
     pair => pair.quoteAsset === 'BTC'
         && pair.status === 'TRADING'
         && !excludedPairs.includes(pair))
