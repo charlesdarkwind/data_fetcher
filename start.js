@@ -8,6 +8,7 @@ const start = async () => {
     const depthManager = new DepthManager();
     await depthManager.init();
     depthManager.startWS();
+    setTimeout(() => depthManager.startSaving(), 10000);
 };
 
 start();
