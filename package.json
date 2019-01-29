@@ -1,0 +1,23 @@
+{
+    "name": "data_fetcher",
+    "version": "0",
+    "main": "start.js",
+    "license": "MIT",
+    "scripts": {
+        "prod": "node ./start.js",
+        "start": "nodemon -L ./start.js"
+    },
+    "dependencies": {
+        "dotenv": "6.0.0",
+        "moment": "2.22.2",
+        "node-binance-api": "0.8.3",
+        "request": "2.65.0",
+        "request-promise": "4.2.2",
+        "yarn": "1.12.3"
+    },
+    "devDependencies": {
+        "nodemon": "1.18.7"
+    },
+    "author": "Jasmin Parent <guildwarsguy12@gmail.com>",
+    "private": true
+}
