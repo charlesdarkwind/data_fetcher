@@ -1,8 +1,9 @@
 const Binance = require('node-binance-api');
 const rp = require('request-promise');
 const moment = require('moment');
-const exchangeInfos = require('./exchangeInfos');
+const exchangeInfos = require('./exchangeInfos.json');
 const fs = require('fs');
+const excludedPairs = require('./params.json').excludedPairs;
 
 const binance = new Binance().options({
     test: false,
@@ -32,7 +33,7 @@ exports.updateExchangeInfos = () => new Promise(resolve => {
 
 
 const allPairsBTC = exchangeInfos.symbols
-    .filter(pair => pair.quoteAsset == 'BTC' && pair.status == 'TRADING' && !excludedPairs.includes(pair))
+    .filter(pair => pair.quoteAsset === 'BTC' && pair.status === 'TRADING' && !excludedPairs.includes(pair))
     .map(pair => pair.symbol);
 exports.allPairsBTC = allPairsBTC;
 
@@ -59,14 +60,14 @@ exports.getPairsByMarketCap = sort => new Promise(resolve => {
     }
     if (sort === 'market_cap') requestOptions.qs.sort = 'market_cap';
     else if (sort === 'volume_24h') requestOptions.qs.sort = 'volume_24h';
-    requestOptions.qs.limit = sort == 'byMarketCap' ? 200 : 300;
+    requestOptions.qs.limit = sort === 'byMarketCap' ? 200 : 300;
     rp(requestOptions)
         .then(res => {
             res.data.map(body => { // check if traded on binance
                 const pairName = `${body.symbol}BTC`;
                 if (allPairsBTC.includes(pairName)
                     && !excludedPairs.includes(pairName)
-                    && body.quote.BTC.price > 0.00000200) {
+                    && body.quote["BTC"].price > 0.00000200) {
                     result.push(pairName);
                 }
             });
