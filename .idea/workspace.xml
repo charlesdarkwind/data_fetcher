@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42305842-c6bb-487d-bb33-e5b981d1b045" name="Default Changelist" comment="">
+    <list default="true" id="42305842-c6bb-487d-bb33-e5b981d1b045" name="Default Changelist" comment="Save to file and gzip done">
+      <change afterPath="$PROJECT_DIR$/binance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mod_depth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -18,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/start.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+            <state relative-caret-position="221">
+              <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -27,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mod_depth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="41" lean-forward="true" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+            <state relative-caret-position="38">
+              <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -73,8 +75,8 @@
         <option value="$PROJECT_DIR$/appController.js" />
         <option value="$PROJECT_DIR$/params.json" />
         <option value="$PROJECT_DIR$/mod_pairs.js" />
-        <option value="$PROJECT_DIR$/mod_depth.js" />
         <option value="$PROJECT_DIR$/start.js" />
+        <option value="$PROJECT_DIR$/mod_depth.js" />
       </list>
     </option>
   </component>
@@ -168,7 +170,7 @@
       <workItem from="1548767033641" duration="599000" />
       <workItem from="1548774927627" duration="2548000" />
       <workItem from="1548789690483" duration="163000" />
-      <workItem from="1548789867513" duration="30046000" />
+      <workItem from="1548789867513" duration="33158000" />
     </task>
     <task id="LOCAL-00001" summary="docs, removing and refactoring for new use cases">
       <created>1548793880236</created>
@@ -205,11 +207,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548807936425</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Save to file and gzip done">
+      <created>1548860363698</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1548860363698</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35257000" />
+    <option name="totallyTimeSpent" value="38369000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -217,7 +226,7 @@
     <layout>
       <window_info id="npm" order="0" side_tool="true" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.117492095" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.117492095" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49947312" weight="0.76837415" />
@@ -225,7 +234,7 @@
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50052685" side_tool="true" weight="0.32962137" />
       <window_info anchor="bottom" id="Find" order="4" sideWeight="0.49947312" weight="0.32962137" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32962137" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49894625" visible="true" weight="0.31403118" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49894625" visible="true" weight="0.31403118" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -268,7 +277,8 @@
     <MESSAGE value="Save to file" />
     <MESSAGE value="minor" />
     <MESSAGE value="tweak to get 100 pairs" />
-    <option name="LAST_COMMIT_MESSAGE" value="tweak to get 100 pairs" />
+    <MESSAGE value="Save to file and gzip done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Save to file and gzip done" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -322,15 +332,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mod_depth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="41" lean-forward="true" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+        <state relative-caret-position="38">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/start.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        <state relative-caret-position="221">
+          <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
         </state>
       </provider>
     </entry>
