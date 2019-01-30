@@ -1,9 +1,9 @@
 /**
- * depth
+ * trades
  * @module charlesdarkwind/data_fetcher
  * @return {object} instance to class object
  */
-let DepthManager = function () {
+let TradesManager = function () {
     'use strict';
 
     const fs = require('fs');
@@ -11,27 +11,27 @@ let DepthManager = function () {
     const {getExchangeInfos, getBtcPairs, getPairs} = require('./mod_pairs');
     const binance = require('./binance');
     const params = require('./params.json');
-    const depthMain = {};
+    let tradesMain = {};
     let exchangeInfos = {};
     let allPairsBTC = [];
     let pairs = [];
     let options = {
-        saveInterval: 10000,
+        saveInterval: 1000 * 60 * 60, // 1h. Every files corresponds to 1 hour of trades for all pairs
         pairsNum: 100
     };
 
 
-    /**
-     * Start periodically saving depth of all pairs to a new file at each intervals.
-     * @returns {undefined}
-     */
     const savePeriodically = () => {
         setInterval(() => {
-            if (!fs.existsSync('./depths')) fs.mkdirSync('./depths'); // Create folder
+            const tmp = tradesMain;
+            tradesMain = {};
+            pairs.map(pair => tradesMain[pair] = []);
+
+            if (!fs.existsSync('./trades')) fs.mkdirSync('./trades'); // Create folder
 
             const gzip = zlib.createGzip({level: 9});
-            const name = `./depths/depth_${Date.now()}.json.gz`;
-            const data = JSON.stringify(depthMain, null, 0);
+            const name = `./trades/trades_${Date.now()}.json.gz`;
+            const data = JSON.stringify(tmp, null, 0);
             const out = fs.createWriteStream(name);
 
             gzip.pipe(out);
@@ -49,11 +49,12 @@ let DepthManager = function () {
             allPairsBTC = getBtcPairs(exchangeInfos, params.excludedPairs);
             pairs = await getPairs(allPairsBTC, params.excludedPairs);
             pairs = pairs.slice(0, options.pairsNum);
+            pairs.map(pair => tradesMain[pair] = []); // Every pair obj in tradesMain is an arr into wich new trades are pushed
         },
 
 
         startWS: function () {
-            binance.websockets.depth(pairs, (symbol, depth) => depthMain[symbol] = depth);
+            binance.websockets.trades(pairs, trades => tradesMain[trades.s].push(trades));
         },
 
 
@@ -62,4 +63,4 @@ let DepthManager = function () {
         }
     };
 };
-module.exports = DepthManager;
+module.exports = TradesManager;
