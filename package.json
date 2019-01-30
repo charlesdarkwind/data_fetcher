@@ -1,6 +1,6 @@
 {
     "name": "data_fetcher",
-    "version": "0",
+    "version": "1.0.0",
     "main": "start.js",
     "license": "MIT",
     "scripts": {
