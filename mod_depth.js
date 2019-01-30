@@ -53,7 +53,7 @@ let DepthManager = function () {
 
 
         startWS: function () {
-            binance.websockets.depth(pairs, (symbol, depth) => depthMain[symbol] = depth);
+            binance.websockets.depthCache(pairs, (symbol, depth) => depthMain[symbol] = depth);
         },
 
 
