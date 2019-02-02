@@ -54,6 +54,7 @@ exports.getPairs = (pairsToInclude, excludedPairs) => new Promise((resolve, reje
                 result.push(pairName);
             }
         });
+        result.unshift('BTCUSDT')
         resolve(result);
     }).catch(err => reject(err));
 });
