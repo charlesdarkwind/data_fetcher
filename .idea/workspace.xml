@@ -4,6 +4,7 @@
     <list default="true" id="42305842-c6bb-487d-bb33-e5b981d1b045" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mod_depth.js" beforeDir="false" afterPath="$PROJECT_DIR$/mod_depth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/params.json" beforeDir="false" afterPath="$PROJECT_DIR$/params.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,11 +26,29 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mod_pairs.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mod_depth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="41" column="76" selection-start-line="41" selection-start-column="76" selection-end-line="41" selection-end-column="76" />
+            <state relative-caret-position="476">
+              <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/params.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -73,11 +92,11 @@
         <option value="$PROJECT_DIR$/mod_trades.js" />
         <option value="$PROJECT_DIR$/start.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/params.json" />
         <option value="$PROJECT_DIR$/mod_pairs.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/last_restart.txt" />
         <option value="$PROJECT_DIR$/lastRestarts.json" />
+        <option value="$PROJECT_DIR$/params.json" />
         <option value="$PROJECT_DIR$/mod_depth.js" />
       </list>
     </option>
@@ -174,7 +193,7 @@
       <workItem from="1550416894787" duration="1207000" />
       <workItem from="1551029979012" duration="5833000" />
       <workItem from="1551036522874" duration="224000" />
-      <workItem from="1551036760263" duration="2801000" />
+      <workItem from="1551036760263" duration="4047000" />
     </task>
     <task id="LOCAL-00001" summary="docs, removing and refactoring for new use cases">
       <created>1548793880236</created>
@@ -267,11 +286,32 @@
       <option name="project" value="LOCAL" />
       <updated>1551033432991</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Exponential restart delay upon subsequent invalid depths">
+      <created>1551039639686</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1551039639688</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Exponential restart delay upon subsequent invalid depths">
+      <created>1551039659086</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1551039659086</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Handle error better">
+      <created>1551039982860</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1551039982860</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60831000" />
+    <option name="totallyTimeSpent" value="62077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -279,12 +319,12 @@
     <layout>
       <window_info id="npm" order="0" side_tool="true" />
       <window_info id="Favorites" order="1" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.1195366" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.1195366" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.49947312" weight="0.76837415" />
       <window_info anchor="bottom" id="Message" order="2" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="3" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.018867925" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.018867925" />
       <window_info anchor="bottom" id="Find" order="4" sideWeight="0.49947312" weight="0.32962137" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32962137" />
       <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49894625" weight="0.31514478" />
@@ -341,7 +381,9 @@
     <MESSAGE value="Including some more pairs" />
     <MESSAGE value="Removing check for small floated prices" />
     <MESSAGE value="Added stagnancy check" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added stagnancy check" />
+    <MESSAGE value="Exponential restart delay upon subsequent invalid depths" />
+    <MESSAGE value="Handle error better" />
+    <option name="LAST_COMMIT_MESSAGE" value="Handle error better" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.eslintrc" />
@@ -375,13 +417,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mod_pairs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-81">
-          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/yarn.lock">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -393,13 +428,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/last_restart.txt" />
-    <entry file="file://$PROJECT_DIR$/params.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lastRestarts.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -414,10 +442,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mod_pairs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/params.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mod_depth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="41" column="76" selection-start-line="41" selection-start-column="76" selection-end-line="41" selection-end-column="76" />
+        <state relative-caret-position="476">
+          <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
         </state>
       </provider>
     </entry>

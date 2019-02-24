@@ -110,8 +110,11 @@ let DepthManager = function () {
         init: async function () {
             exchangeInfos = await getExchangeInfos();
             allPairsBTC = getBtcPairs(exchangeInfos, params.excludedPairs);
-            pairs = await getPairs(allPairsBTC, params.excludedPairs);
-            pairs = pairs.slice(0, options.pairsNum);
+
+            pairs = params.pairs;
+
+            // pairs = await getPairs(allPairsBTC, params.excludedPairs);
+            // pairs = pairs.slice(0, options.pairsNum);
         },
 
 
