@@ -21,7 +21,8 @@ let DepthManager = function () {
     let stopped = false;
     let options = {
         saveInterval: 10000,
-        pairsNum: 100
+        pairsNum: 100,
+        maxDepth: 250
     };
 
     let lastRestarts = JSON.parse(fs.readFileSync('./lastRestarts.json'));
@@ -38,6 +39,7 @@ let DepthManager = function () {
 
     /**
      * Append new date of now.
+     * @returns {undefined}
      */
     const updateRestartsFile = () => {
         lastRestarts.push(Date.now());
@@ -47,10 +49,8 @@ let DepthManager = function () {
 
     /**
      * Check for problems by verifying if the whole depth obj changes between 3 updates. Fix by exiting so pm2 reloads.
-     *
      * Delay goes up exponentialy after every occurences, wont ever go too high because of reset after 10mins.
      * 0, 30, 90, ... seconds.
-     *
      * @returns {undefined}
      */
     const checkForStagnancy = () => {
@@ -73,6 +73,19 @@ let DepthManager = function () {
                 }, delay);
             }
         } else stagnant = 0;
+    };
+
+
+    /**
+     * Limit depth size. Sort it to do so.
+     * @returns {object}
+     */
+    const parseDepth = depth => {
+        const bids = binance.sortBids(depth.bids, options.maxDepth);
+        const asks = binance.sortAsks(depth.asks, options.maxDepth);
+        depth.bids = bids;
+        depth.asks = asks;
+        return depth;
     };
 
 
@@ -106,20 +119,17 @@ let DepthManager = function () {
     };
     return {
 
-
         init: async function () {
             exchangeInfos = await getExchangeInfos();
             allPairsBTC = getBtcPairs(exchangeInfos, params.excludedPairs);
-
             pairs = params.pairs;
-
             // pairs = await getPairs(allPairsBTC, params.excludedPairs);
             // pairs = pairs.slice(0, options.pairsNum);
         },
 
 
         startWS: function () {
-            binance.websockets.depthCache(pairs, (symbol, depth) => depthMain[symbol] = depth);
+            binance.websockets.depthCache(pairs, (symbol, depth) => depthMain[symbol] = parseDepth(depth));
         },
 
 
