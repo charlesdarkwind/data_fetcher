@@ -49,8 +49,7 @@ exports.getPairs = (pairsToInclude, excludedPairs) => new Promise((resolve, reje
         res.data.map(body => {
             const pairName = `${body.symbol}BTC`;
             if (pairsToInclude.includes(pairName)
-                && !excludedPairs.includes(pairName)
-                && body.quote["BTC"].price > 0.00000200) {
+                && !excludedPairs.includes(pairName)) {
                 result.push(pairName);
             }
         });
