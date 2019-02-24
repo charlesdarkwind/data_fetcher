@@ -10,14 +10,33 @@ let DepthManager = function () {
     const zlib = require('zlib');
     const {getExchangeInfos, getBtcPairs, getPairs} = require('./mod_pairs');
     const binance = require('./binance');
+    const equal = require('fast-deep-equal');
     const params = require('./params.json');
     const depthMain = {};
+    let depthMain_old = '';
     let exchangeInfos = {};
     let allPairsBTC = [];
     let pairs = [];
+    let stagnant = 0;
     let options = {
         saveInterval: 10000,
         pairsNum: 100
+    };
+
+    /**
+     * Check for problems by verifying if the whole depth obj changes between 3 updates. Fix by exiting so pm2 reloads.
+     * @returns {undefined}
+     */
+    const checkForStagnancy = () => {
+        if (!depthMain_old) return;
+        if (equal(depthMain, depthMain_old)) {
+            stagnant++;
+            console.log('Looks like the depth was stagnant.');
+            if (stagnant === 1) {
+                console.log('Stagnant again, restarting...');
+                process.exit(0);
+            }
+        } else stagnant = 0;
     };
 
 
@@ -38,6 +57,9 @@ let DepthManager = function () {
             gzip.write(data, (err) => {
                 if (err) throw err;
                 gzip.end();
+
+                checkForStagnancy();
+                depthMain_old = depthMain;
             });
         }, options.saveInterval);
     };
