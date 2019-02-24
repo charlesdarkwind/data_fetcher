@@ -8,33 +8,64 @@ let DepthManager = function () {
 
     const fs = require('fs');
     const zlib = require('zlib');
-    const {getExchangeInfos, getBtcPairs, getPairs} = require('./mod_pairs');
     const binance = require('./binance');
     const equal = require('fast-deep-equal');
     const params = require('./params.json');
+    const {getExchangeInfos, getBtcPairs, getPairs} = require('./mod_pairs');
     const depthMain = {};
     let depthMain_old = '';
     let exchangeInfos = {};
     let allPairsBTC = [];
     let pairs = [];
     let stagnant = 0;
+    let stopped = false;
     let options = {
         saveInterval: 10000,
         pairsNum: 100
     };
 
+    let lastRestarts = JSON.parse(fs.readFileSync('./lastRestarts.json'));
+
+
+    /**
+     * Reset last restarts after 10 mins of up-time so that future restarts are instant.
+     */
+    setTimeout(() => {
+        lastRestarts = [];
+        fs.writeFileSync('./lastRestarts.json', JSON.stringify(lastRestarts));
+    }, 1000 * 60 * 10);
+
+
     /**
      * Check for problems by verifying if the whole depth obj changes between 3 updates. Fix by exiting so pm2 reloads.
+     *
+     * Delay goes up exponentialy after every occurences, wont ever go too high because of reset after 10mins.
+     * 0, 30, 90, ... seconds.
+     *
      * @returns {undefined}
      */
     const checkForStagnancy = () => {
         if (!depthMain_old) return;
         if (equal(depthMain, depthMain_old)) {
             stagnant++;
-            console.log('Looks like the depth was stagnant.');
+            console.log('Stagnant depth data detected.');
+
             if (stagnant === 1) {
-                console.log('Stagnant again, restarting...');
-                process.exit(0);
+                const exp = 1 + (lastRestarts.length / 10);
+                const delay = Math.pow(10000, exp);
+
+                stopped = true;
+
+                lastRestarts.push(Date.now());
+
+                fs.writeFileSync('./lastRestarts.json', JSON.stringify(lastRestarts));
+
+                console.log(`Stagnant again, restarting in ${Math.round(delay/1000)} seconds.`);
+
+                setTimeout(() => {
+                    console.log('Stopping now...');
+                    process.exit(0);
+                }, delay);
             }
         } else stagnant = 0;
     };
@@ -47,20 +78,21 @@ let DepthManager = function () {
     const savePeriodically = () => {
         setInterval(() => {
             if (!fs.existsSync('./depths')) fs.mkdirSync('./depths'); // Create folder
+            if (!stopped) {
+                const gzip = zlib.createGzip({level: 9});
+                const name = `./depths/depth_${Date.now()}.json.gz`;
+                const data = JSON.stringify(depthMain, null, 0);
+                const out = fs.createWriteStream(name);
 
-            const gzip = zlib.createGzip({level: 9});
-            const name = `./depths/depth_${Date.now()}.json.gz`;
-            const data = JSON.stringify(depthMain, null, 0);
-            const out = fs.createWriteStream(name);
+                gzip.pipe(out);
+                gzip.write(data, (err) => {
+                    if (err) throw err;
+                    gzip.end();
 
-            gzip.pipe(out);
-            gzip.write(data, (err) => {
-                if (err) throw err;
-                gzip.end();
-
-                checkForStagnancy();
-                depthMain_old = depthMain;
-            });
+                    checkForStagnancy();
+                    depthMain_old = depthMain;
+                });
+            }
         }, options.saveInterval);
     };
     return {
