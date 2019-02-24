@@ -37,6 +37,15 @@ let DepthManager = function () {
 
 
     /**
+     * Append new date of now.
+     */
+    const updateRestartsFile = () => {
+        lastRestarts.push(Date.now());
+        fs.writeFileSync('./lastRestarts.json', JSON.stringify(lastRestarts));
+    };
+
+
+    /**
      * Check for problems by verifying if the whole depth obj changes between 3 updates. Fix by exiting so pm2 reloads.
      *
      * Delay goes up exponentialy after every occurences, wont ever go too high because of reset after 10mins.
@@ -51,15 +60,11 @@ let DepthManager = function () {
             console.log('Stagnant depth data detected.');
 
             if (stagnant === 1) {
+
                 const exp = 1 + (lastRestarts.length / 10);
                 const delay = Math.pow(10000, exp);
-
                 stopped = true;
-
-                lastRestarts.push(Date.now());
-
-                fs.writeFileSync('./lastRestarts.json', JSON.stringify(lastRestarts));
-
+                updateRestartsFile();
                 console.log(`Stagnant again, restarting in ${Math.round(delay/1000)} seconds.`);
 
                 setTimeout(() => {
@@ -86,7 +91,11 @@ let DepthManager = function () {
 
                 gzip.pipe(out);
                 gzip.write(data, (err) => {
-                    if (err) throw err;
+                    if (err) {
+                        updateRestartsFile();
+                        console.error(err);
+                        process.exit(1);
+                    }
                     gzip.end();
 
                     checkForStagnancy();
