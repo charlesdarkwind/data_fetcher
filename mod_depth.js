@@ -22,7 +22,7 @@ let DepthManager = function () {
     let options = {
         saveInterval: 10000,
         pairsNum: 100,
-        maxDepth: 250
+        maxDepth: 350
     };
 
     let lastRestarts = JSON.parse(fs.readFileSync('./lastRestarts.json'));
@@ -45,7 +45,7 @@ let DepthManager = function () {
         lastRestarts.push(Date.now());
         fs.writeFileSync('./lastRestarts.json', JSON.stringify(lastRestarts));
     };
-
+    let x =0;
 
     /**
      * Check for problems by verifying if the whole depth obj changes between 3 updates. Fix by exiting so pm2 reloads.
@@ -55,11 +55,11 @@ let DepthManager = function () {
      */
     const checkForStagnancy = () => {
         if (!depthMain_old) return;
-        if (equal(depthMain, depthMain_old)) {
+        if (!equal(depthMain, depthMain_old)) {
             stagnant++;
             console.log('Stagnant depth data detected.');
 
-            if (stagnant === 1) {
+            if (stagnant === 2) {
 
                 const exp = 1 + (lastRestarts.length / 10);
                 const delay = Math.pow(10000, exp);
@@ -120,9 +120,9 @@ let DepthManager = function () {
     return {
 
         init: async function () {
-            exchangeInfos = await getExchangeInfos();
-            allPairsBTC = getBtcPairs(exchangeInfos, params.excludedPairs);
             pairs = params.pairs;
+            // exchangeInfos = await getExchangeInfos();
+            // allPairsBTC = getBtcPairs(exchangeInfos, params.excludedPairs);
             // pairs = await getPairs(allPairsBTC, params.excludedPairs);
             // pairs = pairs.slice(0, options.pairsNum);
         },
